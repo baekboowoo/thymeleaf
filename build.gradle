@@ -19,13 +19,18 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-//    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.14.2'
+    implementation 'com.google.code.gson:gson:2.10.1'
 
     // JSP
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper' // 추가
     implementation 'javax.servlet:jstl' // 추가
+
 }
 
 tasks.named('test') {
