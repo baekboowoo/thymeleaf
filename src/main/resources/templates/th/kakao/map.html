@@ -3,12 +3,24 @@
 <head>
     <meta charset="utf-8">
     <title>키워드로 장소검색하고 목록으로 표출하기</title>
+
+    <!--    BS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
     <style>
         .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
         .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
         .map_wrap {position:relative;width:100%;height:500px;}
-        #menu_wrap {height: 85vh; position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+        #menu_wrap {height:90vh; position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
         .bg_white {background:#fff;}
+
+        /* ADDED */
+        #menu_wrap::-webkit-scrollbar {
+            display: none;
+        }
+
+
         #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
         #menu_wrap .option{text-align: center;}
         #menu_wrap .option p {margin:10px 0;}
@@ -21,26 +33,36 @@
         #placesList .info .gray {color:#8a8a8a;}
         #placesList .info .jibun {padding-left:26px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
         #placesList .info .tel {color:#009900;}
-        #placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
-        #placesList .item .marker_1 {background-position: 0 -10px;}
-        #placesList .item .marker_2 {background-position: 0 -56px;}
-        #placesList .item .marker_3 {background-position: 0 -102px}
-        #placesList .item .marker_4 {background-position: 0 -148px;}
-        #placesList .item .marker_5 {background-position: 0 -194px;}
-        #placesList .item .marker_6 {background-position: 0 -240px;}
-        #placesList .item .marker_7 {background-position: 0 -286px;}
-        #placesList .item .marker_8 {background-position: 0 -332px;}
-        #placesList .item .marker_9 {background-position: 0 -378px;}
-        #placesList .item .marker_10 {background-position: 0 -423px;}
-        #placesList .item .marker_11 {background-position: 0 -470px;}
-        #placesList .item .marker_12 {background-position: 0 -516px;}
-        #placesList .item .marker_13 {background-position: 0 -562px;}
-        #placesList .item .marker_14 {background-position: 0 -608px;}
-        #placesList .item .marker_15 {background-position: 0 -654px;}
+        #placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px; left:10px;top:20px;}
+
+        /* UPDATE */
+        #placesList .item .marker_1 {background-image: url('https://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png');  background-size: 30px 35px; background-repeat: no-repeat; background-position:};
+
+        #placesList .item ::after{
+
+        }
+
+        #placesList .item .marker_2 {background-image: url('https://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png');  background-size: 30px 35px; background-repeat: no-repeat; background-position:}
+        #placesList .item .marker_3 {background-image: url('https://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png');  background-size: 30px 35px; background-repeat: no-repeat; background-position:}
+        #placesList .item .marker_4 {background-image: url('https://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png');  background-size: 30px 35px; background-repeat: no-repeat; background-position:}
+        #placesList .item .marker_5 {background-image: url('https://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png');  background-size: 30px 35px; background-repeat: no-repeat; background-position:}
+        #placesList .item .marker_6 {background-image: url('https://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png');  background-size: 30px 35px; background-repeat: no-repeat; background-position:}
+        #placesList .item .marker_7 {background-image: url('https://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png');  background-size: 30px 35px; background-repeat: no-repeat; background-position:}
+        #placesList .item .marker_8 {background-image: url('https://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png');  background-size: 30px 35px; background-repeat: no-repeat; background-position:}
+        #placesList .item .marker_9 {background-image: url('https://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png');  background-size: 30px 35px; background-repeat: no-repeat; background-position:}
+        #placesList .item .marker_10 {background-image: url('https://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png');  background-size: 30px 35px; background-repeat: no-repeat; background-position:}
+        #placesList .item .marker_11 {background-image: url('https://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png');  background-size: 30px 35px; background-repeat: no-repeat; background-position:}
+        #placesList .item .marker_12 {background-image: url('https://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png');  background-size: 30px 35px; background-repeat: no-repeat; background-position:}
+        #placesList .item .marker_13 {background-image: url('https://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png');  background-size: 30px 35px; background-repeat: no-repeat; background-position:}
+        #placesList .item .marker_14 {background-image: url('https://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png');  background-size: 30px 35px; background-repeat: no-repeat; background-position:}
+        #placesList .item .marker_15 {background-image: url('https://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png');  background-size: 30px 35px; background-repeat: no-repeat; background-position:}
+
         #pagination {margin:10px auto;text-align: center;}
         #pagination a {display:inline-block;margin-right:10px;}
         #pagination .on {font-weight: bold; cursor: default;color:#777;}
     </style>
+
+    <link rel="stylesheet" href="../../css/map.css">
 </head>
 <body>
 <div class="map_wrap">
@@ -50,8 +72,14 @@
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="상인동 맛집" id="keyword" size="15">
-                    <button type="submit">검색하기</button>
+                    <div class="row">
+                        <div class="col-9" >
+                            <input class="form-control w-100" type="text" value="대구 맛집" id="keyword" size="15" style="height:30px;">
+                        </div>
+                        <div class="col">
+                            <button type="submit" class="btn btn-warning w-100" style="height:30px;">검색하기</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -61,14 +89,14 @@
     </div>
 </div>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=87f5069176c1b08dac40d52a1d49eff6&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8d373580bb3b1ff5d4b1b9b19f1399d4&libraries=services"></script>
 <script>
     // 마커를 담을 배열입니다
     var markers = [];
 
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         mapOption = {
-            center: new kakao.maps.LatLng(35.8204077691014566826, 128.53518639880906), // 지도의 중심좌표
+            center: new kakao.maps.LatLng(35.81993242750888, 128.53571387653543), // 지도의 중심좌표
             level: 3 // 지도의 확대 레벨
         };
 
@@ -204,14 +232,12 @@
         return el;
     }
 
-    // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
+    //UPDATE--------------------- 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
     function addMarker(position, idx, title) {
-        var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
-            imageSize = new kakao.maps.Size(36, 37),  // 마커 이미지의 크기
+        var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
+            imageSize = new kakao.maps.Size(26, 37),  // 마커 이미지의 크기
             imgOptions =  {
-                spriteSize : new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
-                spriteOrigin : new kakao.maps.Point(0, (idx*46)+10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
-                offset: new kakao.maps.Point(13, 37) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
+                offset: new kakao.maps.Point(23, 37) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
             },
             markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
             marker = new kakao.maps.Marker({
@@ -267,8 +293,12 @@
     // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
     // 인포윈도우에 장소명을 표시합니다
     function displayInfowindow(marker, title) {
-        var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
-
+        var content = '<div  style="padding:10px;z-index:1;height:120px;">'
+        content += '<div>' + title + '</div>';
+        content += '<div>LINK : http://example.com</div>'
+        content += '<div>ADDR : 대구 대구 대구 </div>'
+        content += '<div>TEL : 055-055-0555 </div>'
+        content += '</div>'
         infowindow.setContent(content);
         infowindow.open(map, marker);
     }

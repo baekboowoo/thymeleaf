@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @Slf4j
 @RequestMapping("/th/kakao")
-public class KakaoMapController {
+public class C01KakaoMapController {
 
     @GetMapping("/map")
     public void map(){
